@@ -108,7 +108,11 @@ class CartPage extends BasePage {
   }
 
   async proceedToCheckout() {
-    await this.page.locator(this.selectors.checkoutButton).first().click();
+    try {
+      await this.page.locator('a[href*="/checkout"]').first().click({ timeout: 5000 });
+    } catch (e) {
+      await this.page.locator('#checkout').click({ timeout: 5000 });
+    }
     await this.page.waitForTimeout(3000);
   }
 

@@ -1,8 +1,34 @@
-
-# Playwright
+# Dependencies
 node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-/playwright/.auth/
+
+# Test results
+test-results/
+playwright-report/
+blob-report/
+allure-results/
+allure-report/
+
+# Playwright cache
+playwright/.cache/
+playwright/.auth/
+
+# Screenshots
+screenshots/
+
+# Environment files (local)
+.env
+.env.local
+.env.*.local
+
+# Documentation - do not push to repo
+NopCommerce.md
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

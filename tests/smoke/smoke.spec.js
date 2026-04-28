@@ -1,64 +1,52 @@
 const { test, expect } = require('@playwright/test');
-const HomePage = require('../../pages/HomePage');
-const ProductPage = require('../../pages/ProductPage');
-const CartPage = require('../../pages/CartPage');
-const LoginPage = require('../../pages/LoginPage');
-const RegisterPage = require('../../pages/RegisterPage');
+const { initPageObjects } = require('../../utils/pageObjects');
 
 test.describe('Smoke Tests - Critical Path Validation', () => {
-  let homePage;
-  let productPage;
-  let cartPage;
-  let loginPage;
-  let registerPage;
+  let pages;
 
   test.beforeEach(async ({ page }) => {
-    homePage = new HomePage(page);
-    productPage = new ProductPage(page);
-    cartPage = new CartPage(page);
-    loginPage = new LoginPage(page);
-    registerPage = new RegisterPage(page);
-    await cartPage.clearCart();
+    pages = initPageObjects(page);
+    await pages.cartPage.clearCart();
   });
 
   test('@smoke Homepage loads without errors', async ({ page }) => {
-    await homePage.navigate();
+    await pages.homePage.navigate();
     await expect(page).toHaveTitle(/nopCommerce/i);
-    const isLogoVisible = await homePage.isLogoVisible();
+    const isLogoVisible = await pages.homePage.isLogoVisible();
     expect(isLogoVisible).toBe(true);
   });
 
   test('@smoke Search functionality works', async ({ page }) => {
-    await homePage.navigate();
-    await homePage.searchFor('laptop');
+    await pages.homePage.navigate();
+    await pages.homePage.searchFor('laptop');
     await expect(page).toHaveURL(/search/);
   });
 
   test('@smoke Product page accessible', async ({ page }) => {
-    await productPage.navigate('/build-your-own-computer');
-    const title = await productPage.getProductTitle().catch(() => 'Product page loaded');
+    await pages.productPage.navigate('/build-your-own-computer');
+    const title = await pages.productPage.getProductTitle().catch(() => 'Product page loaded');
     expect(title).toBeTruthy();
   });
 
   test('@smoke Cart page accessible', async ({ page }) => {
-    await cartPage.navigate();
+    await pages.cartPage.navigate();
     const isCartPage = page.url().includes('/cart');
     expect(isCartPage).toBe(true);
   });
 
   test('@smoke Login page accessible', async ({ page }) => {
-    await loginPage.navigate();
+    await pages.loginPage.navigate();
     await expect(page).toHaveURL(/login/);
   });
 
   test('@smoke Register page accessible', async ({ page }) => {
-    await registerPage.navigate();
+    await pages.registerPage.navigate();
     await expect(page).toHaveURL(/register/);
   });
 
   test('@smoke Category navigation works', async ({ page }) => {
-    await homePage.navigate();
-    await homePage.clickOnCategory('Electronics');
+    await pages.homePage.navigate();
+    await pages.homePage.clickOnCategory('Electronics');
     await expect(page).toHaveURL(/electronics/);
   });
 
@@ -68,7 +56,7 @@ test.describe('Smoke Tests - Critical Path Validation', () => {
   });
 
   test('@smoke Footer links are accessible', async ({ page }) => {
-    await homePage.navigate();
+    await pages.homePage.navigate();
     await page.click('text=Contact us');
     await expect(page).toHaveURL(/contactus/);
   });

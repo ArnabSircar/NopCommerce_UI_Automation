@@ -8,7 +8,7 @@ class ProductPage extends BasePage {
       productPrice: '.price',
       productDescription: '.short-description',
       fullDescription: '.full-description',
-      addToCartButton: 'button:has-text("Add to cart")',
+      addToCartButton: '.product-grid .add-to-cart-button, .add-to-cart-button',
       addToWishlistButton: 'button:has-text("Add to wishlist")',
       addToCompareButton: 'button:has-text("Add to compare")',
       quantityInput: '#addtocart_0_EnteredQuantity',
