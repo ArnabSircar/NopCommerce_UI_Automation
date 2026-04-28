@@ -1,0 +1,158 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: functional/navigation.spec.js >> Navigation Tests >> @functional Navigate to privacy notice
+- Location: tests/functional/navigation.spec.js:32:3
+
+# Error details
+
+```
+TimeoutError: page.click: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('a[href*="/privacy-notice"]')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - heading "Sorry, you have been blocked" [level=1] [ref=e5]
+    - heading "You are unable to access nopcommerce.com" [level=2] [ref=e6]
+  - generic [ref=e12]:
+    - generic [ref=e13]:
+      - heading "Why have I been blocked?" [level=2] [ref=e14]
+      - paragraph [ref=e15]: This website is using a security service to protect itself from online attacks. The action you just performed triggered the security solution. There are several actions that could trigger this block including submitting a certain word or phrase, a SQL command or malformed data.
+    - generic [ref=e16]:
+      - heading "What can I do to resolve this?" [level=2] [ref=e17]
+      - paragraph [ref=e18]: You can email the site owner to let them know you were blocked. Please include what you were doing when this page came up and the Cloudflare Ray ID found at the bottom of this page.
+  - paragraph [ref=e20]:
+    - generic [ref=e21]:
+      - text: "Cloudflare Ray ID:"
+      - strong [ref=e22]: 9f34e42a0e53027b
+    - generic [ref=e23]: •
+    - generic [ref=e24]:
+      - text: "Your IP:"
+      - button "Click to reveal" [ref=e25] [cursor=pointer]
+      - generic [ref=e26]: •
+    - generic [ref=e27]:
+      - text: Performance & security by
+      - link "Cloudflare" [ref=e28] [cursor=pointer]:
+        - /url: https://www.cloudflare.com/5xx-error-landing
+```
+
+# Test source
+
+```ts
+  1   | class Footer {
+  2   |   constructor(page) {
+  3   |     this.page = page;
+  4   |     this.selectors = {
+  5   |       footer: '.footer',
+  6   |       informationLinks: '.footer-upper a',
+  7   |       sitemapLink: 'a[href*="/sitemap"]',
+  8   |       shippingLink: 'a[href*="/shipping-returns"]',
+  9   |       privacyLink: 'a[href*="/privacy-notice"]',
+  10  |       conditionsLink: 'a[href*="/conditions-of-use"]',
+  11  |       aboutUsLink: 'a[href*="/about-us"]',
+  12  |       contactUsLink: 'a[href*="/contactus"]',
+  13  |       newsLink: 'a[href*="/news"]',
+  14  |       blogLink: 'a[href*="/blog"]',
+  15  |       sitemapLink2: 'a[href*="/sitemap"]',
+  16  |       customerServiceLinks: '.footer-middle a',
+  17  |       searchLink: 'a[href*="/search"]',
+  18  |       recentlyViewedLink: 'a[href*="/recentlyviewedproducts"]',
+  19  |       compareProductsLink: 'a[href*="/compareproducts"]',
+  20  |       newProductsLink: 'a[href*="/newproducts"]',
+  21  |       myAccountLinks: '.footer-lower a',
+  22  |       ordersLink: 'a[href*="/order/history"]',
+  23  |       addressesLink: 'a[href*="/customer/addresses"]',
+  24  |       downloadLink: 'a[href*="/download"]',
+  25  |       supportLink: 'a[href*="/boards"]',
+  26  |       faqLink: 'a[href*="/boards"]',
+  27  |       followUsSection: '.social',
+  28  |       facebookLink: 'a[href*="facebook"]',
+  29  |       twitterLink: 'a[href*="twitter"]',
+  30  |       rssLink: 'a[href*="rss"]',
+  31  |       youtubeLink: 'a[href*="youtube"]',
+  32  |       instagramLink: 'a[href*="instagram"]',
+  33  |       copyright: '.footer-copyright',
+  34  |       poweredBy: '.footer-poweredby'
+  35  |     };
+  36  |   }
+  37  | 
+  38  |   async isFooterVisible() {
+  39  |     return await this.page.locator(this.selectors.footer).isVisible();
+  40  |   }
+  41  | 
+  42  |   async clickSitemap() {
+  43  |     await this.page.click(this.selectors.sitemapLink);
+  44  |   }
+  45  | 
+  46  |   async clickShippingReturns() {
+  47  |     await this.page.click(this.selectors.shippingLink);
+  48  |   }
+  49  | 
+  50  |   async clickPrivacyNotice() {
+> 51  |     await this.page.click(this.selectors.privacyLink);
+      |                     ^ TimeoutError: page.click: Timeout 15000ms exceeded.
+  52  |   }
+  53  | 
+  54  |   async clickConditionsOfUse() {
+  55  |     await this.page.click(this.selectors.conditionsLink);
+  56  |   }
+  57  | 
+  58  |   async clickAboutUs() {
+  59  |     await this.page.click(this.selectors.aboutUsLink);
+  60  |   }
+  61  | 
+  62  |   async clickContactUs() {
+  63  |     await this.page.click(this.selectors.contactUsLink);
+  64  |   }
+  65  | 
+  66  |   async clickNews() {
+  67  |     await this.page.click(this.selectors.newsLink);
+  68  |   }
+  69  | 
+  70  |   async clickBlog() {
+  71  |     await this.page.click(this.selectors.blogLink);
+  72  |   }
+  73  | 
+  74  |   async clickOrders() {
+  75  |     await this.page.click(this.selectors.ordersLink);
+  76  |   }
+  77  | 
+  78  |   async clickAddresses() {
+  79  |     await this.page.click(this.selectors.addressesLink);
+  80  |   }
+  81  | 
+  82  |   async isFacebookLinkVisible() {
+  83  |     return await this.page.locator(this.selectors.facebookLink).isVisible();
+  84  |   }
+  85  | 
+  86  |   async isTwitterLinkVisible() {
+  87  |     return await this.page.locator(this.selectors.twitterLink).isVisible();
+  88  |   }
+  89  | 
+  90  |   async isYoutubeLinkVisible() {
+  91  |     return await this.page.locator(this.selectors.youtubeLink).isVisible();
+  92  |   }
+  93  | 
+  94  |   async getCopyrightText() {
+  95  |     return await this.page.locator(this.selectors.copyright).textContent();
+  96  |   }
+  97  | 
+  98  |   async getAllInformationLinks() {
+  99  |     const links = await this.page.locator(this.selectors.informationLinks).allTextContents();
+  100 |     return links;
+  101 |   }
+  102 | }
+  103 | 
+  104 | module.exports = Footer;
+```
