@@ -145,10 +145,14 @@ The project includes GitHub Actions workflow (`.github/workflows/playwright.yml`
 2. **Setup**: Node.js LTS, dependencies, Playwright browsers
 3. **Test Execution**: Runs all tests with Allure reporting
 4. **Report Generation**: Creates Allure reports
-5. **Artifact Upload**: Stores test results, screenshots, and reports
+5. **GitHub Pages**: Publishes Allure report for viewing via URL
 
 ### GitHub Actions Status
 ![CI/CD](https://github.com/ArnabSircar/NopCommerce_UI_Automation/actions/workflows/playwright.yml/badge.svg)
+
+### Allure Report URL
+After each CI run, view the Allure test report at:
+**https://arnabsircar.github.io/NopCommerce_UI_Automation/**
 
 ## Test Results
 
