@@ -1,0 +1,425 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: functional\homepage.spec.js >> Homepage Tests >> @functional Verify Electronics category is visible
+- Location: tests\functional\homepage.spec.js:47:3
+
+# Error details
+
+```
+Error: locator.isVisible: Error: strict mode violation: locator('.category-grid a[href*="/electronics"]') resolved to 2 elements:
+    1) <a href="/electronics" title="Show products in category Electronics"> Electronics </a> aka getByRole('link', { name: 'Electronics', exact: true })
+    2) <a href="/electronics" title="Show products in category Electronics">…</a> aka getByRole('link', { name: 'Picture for category Electronics' })
+
+Call log:
+    - checking visibility of locator('.category-grid a[href*="/electronics"]')
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - status
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - link "Skip navigation" [ref=e4] [cursor=pointer]:
+        - /url: "#main"
+      - generic [ref=e5]:
+        - combobox "Currency selector" [ref=e8]:
+          - option "US Dollar" [selected]
+          - option "Euro"
+        - list [ref=e11]:
+          - listitem [ref=e12]:
+            - link "Register" [ref=e13] [cursor=pointer]:
+              - /url: /register?returnUrl=%2F
+          - listitem [ref=e14]:
+            - link "Log in" [ref=e15] [cursor=pointer]:
+              - /url: /login?returnUrl=%2F
+          - listitem [ref=e16]:
+            - link "Wishlist (0)" [ref=e17] [cursor=pointer]:
+              - /url: /wishlist
+              - generic [ref=e18]: Wishlist
+              - generic [ref=e19]: (0)
+          - listitem [ref=e20]:
+            - link "Shopping cart (0)" [ref=e21] [cursor=pointer]:
+              - /url: /cart
+              - generic [ref=e22]: Shopping cart
+              - generic [ref=e23]: (0)
+      - generic [ref=e24]:
+        - link "nopCommerce demo store" [ref=e26] [cursor=pointer]:
+          - /url: /
+          - img "nopCommerce demo store" [ref=e27]
+        - search [ref=e28]:
+          - generic [ref=e29]:
+            - textbox "Search store" [ref=e30]
+            - button "Search" [ref=e31] [cursor=pointer]
+    - navigation [ref=e33]:
+      - menu "Categories" [ref=e34]:
+        - menuitem "Computers" [ref=e35]:
+          - button "Computers" [ref=e37] [cursor=pointer]
+        - menuitem "Electronics" [ref=e38]:
+          - button "Electronics" [ref=e40] [cursor=pointer]
+        - menuitem "Apparel" [ref=e41]:
+          - button "Apparel" [ref=e43] [cursor=pointer]
+        - menuitem "Digital downloads" [ref=e44]:
+          - button "Digital downloads" [ref=e45] [cursor=pointer]
+        - menuitem "Books" [ref=e46]:
+          - button "Books" [ref=e47] [cursor=pointer]
+        - menuitem "Jewelry" [ref=e48]:
+          - button "Jewelry" [ref=e49] [cursor=pointer]
+        - menuitem "Gift Cards" [ref=e50]:
+          - button "Gift Cards" [ref=e51] [cursor=pointer]
+    - main [ref=e52]:
+      - generic [ref=e56]:
+        - generic [ref=e58]:
+          - link [ref=e60] [cursor=pointer]:
+            - /url: https://demo.nopcommerce.com/apple-iphone-16-128gb
+            - img [ref=e61]
+          - generic [ref=e63]:
+            - link:
+              - /url: https://demo.nopcommerce.com/samsung-galaxy-s24-256gb
+              - img
+        - generic [ref=e65]:
+          - heading "Welcome to our store" [level=2] [ref=e67]
+          - generic [ref=e68]:
+            - paragraph [ref=e69]: Online shopping is the process consumers go through to purchase products or services over the Internet. You can edit this in the admin site.
+            - paragraph [ref=e70]:
+              - text: If you have questions, see the
+              - link "Documentation" [ref=e71] [cursor=pointer]:
+                - /url: http://docs.nopcommerce.com/
+              - text: ", or post in the"
+              - link "Forums" [ref=e72] [cursor=pointer]:
+                - /url: https://www.nopcommerce.com/boards/
+              - text: at
+              - link "nopCommerce.com" [ref=e73] [cursor=pointer]:
+                - /url: https://www.nopcommerce.com
+        - generic [ref=e75]:
+          - article [ref=e76]:
+            - heading "Electronics" [level=2] [ref=e77]:
+              - link "Electronics" [ref=e78] [cursor=pointer]:
+                - /url: /electronics
+            - link "Picture for category Electronics" [ref=e80] [cursor=pointer]:
+              - /url: /electronics
+              - img "Picture for category Electronics" [ref=e81]
+          - article [ref=e82]:
+            - heading "Apparel" [level=2] [ref=e83]:
+              - link "Apparel" [ref=e84] [cursor=pointer]:
+                - /url: /apparel
+            - link "Picture for category Apparel" [ref=e86] [cursor=pointer]:
+              - /url: /apparel
+              - img "Picture for category Apparel" [ref=e87]
+          - article [ref=e88]:
+            - heading "Digital downloads" [level=2] [ref=e89]:
+              - link "Digital downloads" [ref=e90] [cursor=pointer]:
+                - /url: /digital-downloads
+            - link "Picture for category Digital downloads" [ref=e92] [cursor=pointer]:
+              - /url: /digital-downloads
+              - img "Picture for category Digital downloads" [ref=e93]
+        - generic [ref=e94]:
+          - heading "Featured products" [level=2] [ref=e95]
+          - generic [ref=e96]:
+            - article [ref=e98]:
+              - link "Picture of Build your own computer" [ref=e100] [cursor=pointer]:
+                - /url: /build-your-own-computer
+                - img "Picture of Build your own computer" [ref=e101]
+              - generic [ref=e102]:
+                - heading "Build your own computer" [level=2] [ref=e103]:
+                  - link "Build your own computer" [ref=e104] [cursor=pointer]:
+                    - /url: /build-your-own-computer
+                - generic "1 review(s)" [ref=e105]
+                - generic [ref=e108]:
+                  - generic [ref=e109]: $1,200.00
+                  - generic [ref=e110]:
+                    - button "Add to cart" [ref=e111] [cursor=pointer]
+                    - button "Add to compare list" [ref=e112] [cursor=pointer]
+                    - button "Add to wishlist" [ref=e113] [cursor=pointer]
+            - article [ref=e115]:
+              - link "Picture of Apple MacBook Pro" [ref=e117] [cursor=pointer]:
+                - /url: /apple-macbook-pro
+                - img "Picture of Apple MacBook Pro" [ref=e118]
+              - generic [ref=e119]:
+                - heading "Apple MacBook Pro" [level=2] [ref=e120]:
+                  - link "Apple MacBook Pro" [ref=e121] [cursor=pointer]:
+                    - /url: /apple-macbook-pro
+                - generic "1 review(s)" [ref=e122]
+                - generic [ref=e125]:
+                  - generic [ref=e126]: $1,800.00
+                  - generic [ref=e127]:
+                    - button "Add to cart" [ref=e128] [cursor=pointer]
+                    - button "Add to compare list" [ref=e129] [cursor=pointer]
+                    - button "Add to wishlist" [ref=e130] [cursor=pointer]
+            - article [ref=e132]:
+              - link "Picture of HTC smartphone" [ref=e134] [cursor=pointer]:
+                - /url: /htc-smartphone
+                - img "Picture of HTC smartphone" [ref=e135]
+              - generic [ref=e136]:
+                - heading "HTC smartphone" [level=2] [ref=e137]:
+                  - link "HTC smartphone" [ref=e138] [cursor=pointer]:
+                    - /url: /htc-smartphone
+                - generic "1 review(s)" [ref=e139]
+                - generic [ref=e142]:
+                  - generic [ref=e143]: $245.00
+                  - generic [ref=e144]:
+                    - button "Add to cart" [ref=e145] [cursor=pointer]
+                    - button "Add to compare list" [ref=e146] [cursor=pointer]
+                    - button "Add to wishlist" [ref=e147] [cursor=pointer]
+            - article [ref=e149]:
+              - link "Picture of $25 Virtual Gift Card" [ref=e151] [cursor=pointer]:
+                - /url: /25-virtual-gift-card
+                - img "Picture of $25 Virtual Gift Card" [ref=e152]
+              - generic [ref=e153]:
+                - heading "$25 Virtual Gift Card" [level=2] [ref=e154]:
+                  - link "$25 Virtual Gift Card" [ref=e155] [cursor=pointer]:
+                    - /url: /25-virtual-gift-card
+                - generic "1 review(s)" [ref=e156]
+                - generic [ref=e159]:
+                  - generic [ref=e160]: $25.00
+                  - generic [ref=e161]:
+                    - button "Add to cart" [ref=e162] [cursor=pointer]
+                    - button "Add to compare list" [ref=e163] [cursor=pointer]
+                    - button "Add to wishlist" [ref=e164] [cursor=pointer]
+        - generic [ref=e165]:
+          - heading "News" [level=2] [ref=e166]
+          - generic [ref=e167]:
+            - article [ref=e168]:
+              - generic [ref=e169]:
+                - link "About nopCommerce" [ref=e170] [cursor=pointer]:
+                  - /url: /about-nopcommerce
+                  - heading "About nopCommerce" [level=3] [ref=e171]
+                - time [ref=e172]: "-Tuesday, November 4, 2025"
+              - generic [ref=e173]: It's stable and highly usable. From downloads to documentation, www.nopCommerce.com offers a comprehensive base of information, resources, and support to the nopCommerce community.
+              - link "details" [ref=e175] [cursor=pointer]:
+                - /url: /about-nopcommerce
+            - article [ref=e176]:
+              - generic [ref=e177]:
+                - link "nopCommerce new release!" [ref=e178] [cursor=pointer]:
+                  - /url: /nopcommerce-new-release
+                  - heading "nopCommerce new release!" [level=3] [ref=e179]
+                - time [ref=e180]: "-Tuesday, November 4, 2025"
+              - generic [ref=e181]: nopCommerce includes everything you need to begin your e-commerce online store. We have thought of everything and it's all included! nopCommerce is a fully customizable shopping cart
+              - link "details" [ref=e183] [cursor=pointer]:
+                - /url: /nopcommerce-new-release
+            - article [ref=e184]:
+              - generic [ref=e185]:
+                - link "New online store is open!" [ref=e186] [cursor=pointer]:
+                  - /url: /new-online-store-is-open
+                  - heading "New online store is open!" [level=3] [ref=e187]
+                - time [ref=e188]: "-Tuesday, November 4, 2025"
+              - generic [ref=e189]: The new nopCommerce store is open now! We are very excited to offer our new range of products. We will be constantly adding to our range so please register on our site.
+              - link "details" [ref=e191] [cursor=pointer]:
+                - /url: /new-online-store-is-open
+          - link "View News Archive" [ref=e193] [cursor=pointer]:
+            - /url: /news
+        - generic [ref=e194]:
+          - heading "Community poll" [level=2] [ref=e195]
+          - generic [ref=e196]:
+            - strong [ref=e197]: Do you like nopCommerce?
+            - list [ref=e198]:
+              - listitem [ref=e199]:
+                - radio "Excellent" [ref=e200] [cursor=pointer]
+                - generic [ref=e201] [cursor=pointer]: Excellent
+              - listitem [ref=e202]:
+                - radio "Good" [ref=e203] [cursor=pointer]
+                - generic [ref=e204] [cursor=pointer]: Good
+              - listitem [ref=e205]:
+                - radio "Poor" [ref=e206] [cursor=pointer]
+                - generic [ref=e207] [cursor=pointer]: Poor
+              - listitem [ref=e208]:
+                - radio "Very bad" [ref=e209] [cursor=pointer]
+                - generic [ref=e210] [cursor=pointer]: Very bad
+            - button "Vote" [ref=e212] [cursor=pointer]
+    - contentinfo [ref=e213]:
+      - generic [ref=e214]:
+        - navigation [ref=e215]:
+          - heading "Information" [level=2] [ref=e216]
+          - menu "Information" [ref=e217]:
+            - menuitem "Sitemap" [ref=e218]:
+              - link "Sitemap" [ref=e219] [cursor=pointer]:
+                - /url: /sitemap
+            - menuitem "Shipping & returns" [ref=e220]:
+              - link "Shipping & returns" [ref=e221] [cursor=pointer]:
+                - /url: /shipping-returns
+            - menuitem "Privacy notice" [ref=e222]:
+              - link "Privacy notice" [ref=e223] [cursor=pointer]:
+                - /url: /privacy-notice
+            - menuitem "Conditions of Use" [ref=e224]:
+              - link "Conditions of Use" [ref=e225] [cursor=pointer]:
+                - /url: /conditions-of-use
+            - menuitem "About us" [ref=e226]:
+              - link "About us" [ref=e227] [cursor=pointer]:
+                - /url: /about-us
+            - menuitem "Contact us" [ref=e228]:
+              - link "Contact us" [ref=e229] [cursor=pointer]:
+                - /url: /contactus
+          - heading "Customer service" [level=2] [ref=e230]
+          - menu "Customer service" [ref=e231]:
+            - menuitem "Search" [ref=e232]:
+              - link "Search" [ref=e233] [cursor=pointer]:
+                - /url: /search
+            - menuitem "News" [ref=e234]:
+              - link "News" [ref=e235] [cursor=pointer]:
+                - /url: /news
+            - menuitem "Blog" [ref=e236]:
+              - link "Blog" [ref=e237] [cursor=pointer]:
+                - /url: /blog
+            - menuitem "Recently viewed products" [ref=e238]:
+              - link "Recently viewed products" [ref=e239] [cursor=pointer]:
+                - /url: /recentlyviewedproducts
+            - menuitem "Compare products list" [ref=e240]:
+              - link "Compare products list" [ref=e241] [cursor=pointer]:
+                - /url: /compareproducts
+            - menuitem "New products" [ref=e242]:
+              - link "New products" [ref=e243] [cursor=pointer]:
+                - /url: /newproducts
+          - heading "My account" [level=2] [ref=e244]
+          - menu "My account" [ref=e245]:
+            - menuitem "My account" [ref=e246]:
+              - link "My account" [ref=e247] [cursor=pointer]:
+                - /url: /customer/info
+            - menuitem "Orders" [ref=e248]:
+              - link "Orders" [ref=e249] [cursor=pointer]:
+                - /url: /order/history
+            - menuitem "Addresses" [ref=e250]:
+              - link "Addresses" [ref=e251] [cursor=pointer]:
+                - /url: /customer/addresses
+            - menuitem "Shopping cart" [ref=e252]:
+              - link "Shopping cart" [ref=e253] [cursor=pointer]:
+                - /url: /cart
+            - menuitem "Wishlist" [ref=e254]:
+              - link "Wishlist" [ref=e255] [cursor=pointer]:
+                - /url: /wishlist
+            - menuitem "Apply for vendor account" [ref=e256]:
+              - link "Apply for vendor account" [ref=e257] [cursor=pointer]:
+                - /url: /vendor/apply
+        - generic [ref=e258]:
+          - generic [ref=e259]:
+            - heading "Follow us" [level=2] [ref=e260]
+            - list [ref=e261]:
+              - listitem [ref=e262]:
+                - link "Facebook" [ref=e263] [cursor=pointer]:
+                  - /url: https://www.facebook.com/nopCommerce
+              - listitem [ref=e264]:
+                - link "Twitter" [ref=e265] [cursor=pointer]:
+                  - /url: https://twitter.com/nopCommerce
+              - listitem [ref=e266]:
+                - link "RSS" [ref=e267] [cursor=pointer]:
+                  - /url: /news/rss/1
+              - listitem [ref=e268]:
+                - link "YouTube" [ref=e269] [cursor=pointer]:
+                  - /url: https://www.youtube.com/user/nopCommerce
+              - listitem [ref=e270]:
+                - link "Instagram" [ref=e271] [cursor=pointer]:
+                  - /url: https://www.instagram.com/nopcommerce_official
+          - form [ref=e272]:
+            - heading "Newsletter" [level=2] [ref=e273]
+            - generic [ref=e275]:
+              - textbox "Sign up for our newsletter" [ref=e276]:
+                - /placeholder: Enter your email here...
+              - button "Subscribe" [ref=e277] [cursor=pointer]
+      - generic [ref=e278]:
+        - generic [ref=e279]: Copyright © 2026 nopCommerce demo store. All rights reserved.
+        - generic [ref=e280]:
+          - text: Powered by
+          - link "nopCommerce" [ref=e281] [cursor=pointer]:
+            - /url: https://www.nopcommerce.com/
+```
+
+# Test source
+
+```ts
+  1  | const { BASE_URL } = require('../utils/constants');
+  2  | 
+  3  | class BasePage {
+  4  |   constructor(page) {
+  5  |     this.page = page;
+  6  |     this.baseUrl = BASE_URL;
+  7  |   }
+  8  | 
+  9  |   async navigate(path = '') {
+  10 |     await this.page.goto(`${this.baseUrl}${path}`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  11 |   }
+  12 | 
+  13 |   async waitForLoadState() {
+  14 |     await this.page.waitForLoadState('domcontentloaded');
+  15 |     await this.page.waitForLoadState('networkidle');
+  16 |   }
+  17 | 
+  18 |   async click(selector) {
+  19 |     await this.page.click(selector);
+  20 |   }
+  21 | 
+  22 |   async fill(selector, value) {
+  23 |     await this.page.fill(selector, value);
+  24 |   }
+  25 | 
+  26 |   async getText(selector) {
+  27 |     return await this.page.textContent(selector);
+  28 |   }
+  29 | 
+  30 |   async isVisible(selector) {
+  31 |     const element = this.page.locator(selector);
+> 32 |     return await element.isVisible();
+     |                          ^ Error: locator.isVisible: Error: strict mode violation: locator('.category-grid a[href*="/electronics"]') resolved to 2 elements:
+  33 |   }
+  34 | 
+  35 |   async waitForSelector(selector, options = {}) {
+  36 |     await this.page.waitForSelector(selector, { state: 'visible', ...options });
+  37 |   }
+  38 | 
+  39 |   async getAttribute(selector, attribute) {
+  40 |     return await this.page.getAttribute(selector, attribute);
+  41 |   }
+  42 | 
+  43 |   async getCurrentUrl() {
+  44 |     return this.page.url();
+  45 |   }
+  46 | 
+  47 |   async getTitle() {
+  48 |     return await this.page.title();
+  49 |   }
+  50 | 
+  51 |   async waitForNavigation(action) {
+  52 |     await Promise.all([
+  53 |       this.page.waitForNavigation({ waitUntil: 'networkidle' }),
+  54 |       action()
+  55 |     ]);
+  56 |   }
+  57 | 
+  58 |   async reload() {
+  59 |     await this.page.reload({ waitUntil: 'networkidle' });
+  60 |   }
+  61 | 
+  62 |   async goBack() {
+  63 |     await this.page.goBack();
+  64 |   }
+  65 | 
+  66 |   async goForward() {
+  67 |     await this.page.goForward();
+  68 |   }
+  69 | 
+  70 |   async scrollToElement(selector) {
+  71 |     await this.page.locator(selector).scrollIntoViewIfNeeded();
+  72 |   }
+  73 | 
+  74 |   async screenshot(name) {
+  75 |     await this.page.screenshot({ path: `./screenshots/${name}.png` });
+  76 |   }
+  77 | 
+  78 |   async isEnabled(selector) {
+  79 |     const element = this.page.locator(selector);
+  80 |     return await element.isEnabled();
+  81 |   }
+  82 | 
+  83 |   async countElements(selector) {
+  84 |     return await this.page.locator(selector).count();
+  85 |   }
+  86 | }
+  87 | 
+  88 | module.exports = BasePage;
+```

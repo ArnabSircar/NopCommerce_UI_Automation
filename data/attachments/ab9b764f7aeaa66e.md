@@ -1,0 +1,161 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: regression\e2e.spec.js >> End-to-End Tests >> @regression Add to wishlist - move to cart - checkout
+- Location: tests\regression\e2e.spec.js:103:3
+
+# Error details
+
+```
+TimeoutError: locator.click: Timeout 15000ms exceeded.
+Call log:
+  - waiting for locator('text=Continue').first()
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic [ref=e3]:
+      - heading "demo.nopcommerce.com" [level=1] [ref=e5]
+      - heading "Performing security verification" [level=2] [ref=e6]
+      - paragraph [ref=e7]: This website uses a security service to protect against malicious bots. This page is displayed while the website verifies you are not a bot.
+  - contentinfo [ref=e11]:
+    - generic [ref=e13]:
+      - generic [ref=e15]:
+        - text: "Ray ID:"
+        - code [ref=e16]: 9f341583cf719cba
+      - generic [ref=e17]:
+        - generic [ref=e18]:
+          - text: Performance and Security by
+          - link "Cloudflare" [ref=e19] [cursor=pointer]:
+            - /url: https://www.cloudflare.com?utm_source=challenge&utm_campaign=m
+        - link "Privacy" [ref=e21] [cursor=pointer]:
+          - /url: https://www.cloudflare.com/privacypolicy/
+```
+
+# Test source
+
+```ts
+  1   | const BasePage = require('./BasePage');
+  2   | 
+  3   | class RegisterPage extends BasePage {
+  4   |   constructor(page) {
+  5   |     super(page);
+  6   |     this.selectors = {
+  7   |       firstNameInput: '#FirstName',
+  8   |       lastNameInput: '#LastName',
+  9   |       emailInput: '#Email',
+  10  |       passwordInput: '#Password',
+  11  |       confirmPasswordInput: '#ConfirmPassword',
+  12  |       registerButton: '#register-button',
+  13  |       loginLink: 'a[href*="/login"]',
+  14  |       maleGender: '#gender-male',
+  15  |       femaleGender: '#gender-female',
+  16  |       firstNameError: '#FirstName-error',
+  17  |       lastNameError: '#LastName-error',
+  18  |       emailError: '#Email-error',
+  19  |       passwordError: '#Password-error',
+  20  |       confirmPasswordError: '#ConfirmPassword-error',
+  21  |       registrationSuccess: '.result',
+  22  |       validationSummary: '.validation-summary-errors',
+  23  |       continueButton: '.button-1.continue-button',
+  24  |       logoutLink: 'a[href*="/logout"]',
+  25  |       registrationConfirmedMessage: '.registration-result'
+  26  |     };
+  27  |   }
+  28  | 
+  29  |   async navigate() {
+  30  |     await super.navigate('/register');
+  31  |   }
+  32  | 
+  33  |   async register(userData) {
+  34  |     await this.fill(this.selectors.firstNameInput, userData.firstName);
+  35  |     await this.fill(this.selectors.lastNameInput, userData.lastName);
+  36  |     await this.fill(this.selectors.emailInput, userData.email);
+  37  |     await this.fill(this.selectors.passwordInput, userData.password);
+  38  |     await this.fill(this.selectors.confirmPasswordInput, userData.confirmPassword);
+  39  |     await this.click(this.selectors.registerButton);
+  40  |     await this.page.waitForTimeout(3000);
+  41  |   }
+  42  | 
+  43  |   async selectGender(gender) {
+  44  |     if (gender === 'male') {
+  45  |       await this.click(this.selectors.maleGender);
+  46  |     } else if (gender === 'female') {
+  47  |       await this.click(this.selectors.femaleGender);
+  48  |     }
+  49  |   }
+  50  | 
+  51  |   async clickLogin() {
+  52  |     await this.click(this.selectors.loginLink);
+  53  |   }
+  54  | 
+  55  |   async isRegistrationSuccess() {
+  56  |     try {
+  57  |       await this.waitForSelector(this.selectors.registrationSuccess, { timeout: 10000 });
+  58  |       const successMessage = await this.getText(this.selectors.registrationSuccess);
+  59  |       return successMessage.toLowerCase().includes('success');
+  60  |     } catch (e) {
+  61  |       const confirmed = await this.isVisible(this.selectors.registrationConfirmedMessage);
+  62  |       return confirmed;
+  63  |     }
+  64  |   }
+  65  | 
+  66  |   async getFirstNameError() {
+  67  |     return await this.getText(this.selectors.firstNameError);
+  68  |   }
+  69  | 
+  70  |   async getLastNameError() {
+  71  |     return await this.getText(this.selectors.lastNameError);
+  72  |   }
+  73  | 
+  74  |   async getEmailError() {
+  75  |     return await this.getText(this.selectors.emailError);
+  76  |   }
+  77  | 
+  78  |   async getPasswordError() {
+  79  |     return await this.getText(this.selectors.passwordError);
+  80  |   }
+  81  | 
+  82  |   async getConfirmPasswordError() {
+  83  |     return await this.getText(this.selectors.confirmPasswordError);
+  84  |   }
+  85  | 
+  86  |   async isValidationSummaryVisible() {
+  87  |     return await this.isVisible(this.selectors.validationSummary);
+  88  |   }
+  89  | 
+  90  |   async getValidationSummary() {
+  91  |     return await this.getText(this.selectors.validationSummary);
+  92  |   }
+  93  | 
+  94  |   async clickContinue() {
+  95  |     try {
+  96  |       await this.waitForSelector(this.selectors.continueButton, { timeout: 5000 });
+  97  |       await this.click(this.selectors.continueButton);
+  98  |       await this.page.waitForTimeout(2000);
+  99  |     } catch (e) {
+> 100 |       await this.page.locator('text=Continue').first().click();
+      |                                                        ^ TimeoutError: locator.click: Timeout 15000ms exceeded.
+  101 |     }
+  102 |   }
+  103 | 
+  104 |   async logout() {
+  105 |     await this.click(this.selectors.logoutLink);
+  106 |   }
+  107 | 
+  108 |   async isLoggedIn() {
+  109 |     return await this.isVisible(this.selectors.logoutLink);
+  110 |   }
+  111 | }
+  112 | 
+  113 | module.exports = RegisterPage;
+```
