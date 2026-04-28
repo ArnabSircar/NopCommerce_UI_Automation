@@ -172,4 +172,4 @@ npm test
 ISC License
 
 ---
-**Testing**: https://demo.nopcommerce.com/ | **Report**: https://arnabsircar.github.io/NopCommerce_UI_Automation/
+**Testing**: https://demo.nopcommerce.com/ | **Report**: [https://arnabsircar.github.io/NopCommerce_UI_Automation/](https://arnabsircar.github.io/NopCommerce_UI_Automation/)
