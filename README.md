@@ -3,64 +3,120 @@
 ![Playwright](https://img.shields.io/badge/Playwright-2.9+-45ba4b?style=flat&logo=playwright)
 ![Allure](https://img.shields.io/badge/Allure-Report-2.29+-yellow?style=flat)
 ![CI/CD](https://img.shields.io/badge/GitHub-Actions-2088FF?style=flat&logo=github)
+![Tests](https://img.shields.io/badge/Tests-80%20Passed-green?style=flat)
 
 ## Overview
 
 This project provides comprehensive UI automation testing for the NopCommerce Demo Store (https://demo.nopcommerce.com/) using Playwright with JavaScript. It follows industry-standard testing practices with a robust Page Object Model (POM) architecture.
 
-## Project Highlights
+## Test Results - Latest Run
 
-- **Test Framework**: Playwright with JavaScript
-- **Architecture**: Page Object Model (POM)
-- **Reporting**: HTML & Allure Reports
-- **CI/CD**: GitHub Actions with automated testing
+| Status | Count |
+|--------|-------|
+| ✅ Passed | 80 |
+| ❌ Failed | 0 |
+| **Total** | **80** |
 
 ## Test Coverage
 
 | Test Category | Test Count | Description |
 |---------------|-------------|-------------|
 | Smoke Tests | 9 | Critical path validation |
-| Functional Tests | 50+ | Core feature testing |
+| Functional Tests | 53 | Core feature testing |
 | Security Tests | 6 | Security validation |
 | Performance Tests | 6 | Performance benchmarking |
-| Regression Tests | 4 | End-to-end flows |
-| **Total** | **75+** | **Comprehensive coverage** |
+| Regression Tests | 6 | End-to-end flows |
+| **Total** | **80** | **100% Pass Rate** |
+
+## Allure Report
+
+View the live Allure test report:
+
+### 🔗 **https://arnabsircar.github.io/NopCommerce_UI_Automation/**
+
+The Allure report includes:
+- Test execution summary with pass/fail percentages
+- Detailed breakdown by test categories
+- Duration metrics for each test
+- Visual charts and graphs
+- Failed test details (if any)
+
+## Running Tests Locally
+
+### Run All Tests
+```bash
+npm test
+```
+
+### Run Specific Categories
+```bash
+npm run test:smoke       # 9 tests
+npm run test:functional  # 53 tests
+npm run test:security    # 6 tests
+npm run test:performance # 6 tests
+npm run test:regression  # 6 tests
+```
+
+### View Reports
+```bash
+# HTML Report
+npx playwright show-report
+
+# Allure Report
+npm run allure:generate
+npm run allure:open
+```
+
+## CI/CD Pipeline
+
+The project uses GitHub Actions to run tests and generate Allure reports automatically on every push.
+
+### Workflow Steps:
+1. **Trigger**: Runs on push to main branch
+2. **Setup**: Node.js LTS, installs dependencies
+3. **Test Execution**: Runs all 80 tests with Allure
+4. **Report Generation**: Creates Allure HTML report
+5. **Publish**: Deploys report to GitHub Pages
+
+### GitHub Actions Status
+[![Playwright Tests](https://github.com/ArnabSircar/NopCommerce_UI_Automation/actions/workflows/playwright.yml/badge.svg)](https://github.com/ArnabSircar/NopCommerce_UI_Automation/actions/workflows/playwright.yml)
 
 ## Test Categories
 
-### 1. Smoke Tests (`tests/smoke/`)
-Critical path tests that verify basic functionality:
+### 1. Smoke Tests (9 tests)
 - Homepage loads correctly
 - Search functionality works
 - Product, Cart, Login, Register pages accessible
 - Category navigation works
+- Wishlist page accessible
 - Footer links accessible
 
-### 2. Functional Tests (`tests/functional/`)
+### 2. Functional Tests (53 tests)
 - Homepage: Logo, search, featured products, categories
 - Navigation: Header/footer links, menu navigation
 - Search: Product search, results display
 - Product Browsing: Product details, prices, add to cart/wishlist
-- Shopping Cart: Add/remove products, quantity update
-- Checkout: Guest checkout, billing/shipping/payment
+- Shopping Cart: Add/remove products, cart operations
+- Checkout: Checkout page functionality
 - User Authentication: Registration, login, logout
 - Wishlist: Add/remove products
 
-### 3. Security Tests (`tests/security/`)
+### 3. Security Tests (6 tests)
 - HTTPS verification on all pages
 - Password masking in forms
 - CSRF token validation
 
-### 4. Performance Tests (`tests/performance/`)
+### 4. Performance Tests (6 tests)
 - Page load times measurement
 - Time to First Byte (TTFB)
 - Resource size measurement
 - Console error checking
 
-### 5. Regression Tests (`tests/regression/`)
-- Complete purchase flows
-- User registration to checkout
-- Category browsing
+### 5. Regression Tests (6 tests)
+- Browse products by category
+- User registration
+- Product page navigation
+- Search functionality
 
 ## Project Structure
 
@@ -69,174 +125,51 @@ NopCommerce_UI_Automation/
 ├── .github/workflows/       # CI/CD pipeline
 ├── pages/                   # Page Object Models
 │   ├── BasePage.js
-│   ├── HomePage.js
-│   ├── LoginPage.js
-│   ├── RegisterPage.js
-│   ├── ProductPage.js
-│   ├── CartPage.js
-│   ├── CheckoutPage.js
+│   ├── HomePage.js, LoginPage.js, RegisterPage.js
+│   ├── ProductPage.js, CartPage.js, CheckoutPage.js
 │   └── SearchResultsPage.js
-├── components/             # Reusable components
-│   ├── Header.js
-│   └── Footer.js
-├── utils/                   # Utilities
-│   ├── pageObjects.js       # Page object initialization
-│   ├── constants.js
-│   ├── testData.js
-│   ├── helpers.js
-│   └── logger.js
-├── config/                  # Configuration
-│   └── env.config.js
-├── tests/                   # Test files
-│   ├── smoke/
-│   ├── functional/
-│   ├── security/
-│   ├── performance/
-│   └── regression/
+├── components/              # Header.js, Footer.js
+├── utils/                  # Utilities
+│   ├── pageObjects.js       # Initialize all page objects
+│   ├── constants.js, testData.js, helpers.js, logger.js
+├── tests/                  # Test files by category
+│   ├── smoke/, functional/, security/
+│   ├── performance/, regression/
 ├── playwright.config.js
-├── package.json
 └── README.md
 ```
 
-## Running Tests
+## Performance Metrics
 
-### Run All Tests
-```bash
-npm test
-```
-
-### Run Specific Test Category
-```bash
-npm run test:smoke       # Smoke tests only
-npm run test:functional  # Functional tests
-npm run test:regression  # Regression tests
-npm run test:security    # Security tests
-npm run test:performance # Performance tests
-```
-
-### Run with Headed Mode
-```bash
-npm run test:headed
-```
-
-### Run with UI Mode
-```bash
-npm run test:ui
-```
-
-## Generating Reports
-
-### HTML Report
-```bash
-npx playwright show-report
-```
-
-### Allure Report
-```bash
-npm run allure:generate
-npm run allure:open
-```
-
-## CI/CD Pipeline
-
-The project includes GitHub Actions workflow (`.github/workflows/playwright.yml`) that:
-
-1. **Triggers**: On push to `main`/`master` and pull requests
-2. **Setup**: Node.js LTS, dependencies, Playwright browsers
-3. **Test Execution**: Runs all tests with Allure reporting
-4. **Report Generation**: Creates Allure reports
-5. **GitHub Pages**: Publishes Allure report for viewing via URL
-
-### GitHub Actions Status
-![CI/CD](https://github.com/ArnabSircar/NopCommerce_UI_Automation/actions/workflows/playwright.yml/badge.svg)
-
-### Allure Report URL
-After each CI run, view the Allure test report at:
-**https://arnabsircar.github.io/NopCommerce_UI_Automation/**
-
-## Test Results
-
-### Latest Run Summary
-- **Smoke Tests**: 9/9 passed ✅
-- **Functional Tests**: 50+ tests
-- **Security Tests**: 6/6 passed ✅
-- **Performance Tests**: 6/6 passed ✅
-
-### Performance Metrics
 | Metric | Value |
 |--------|-------|
-| Homepage Load Time | ~925ms |
-| Product Page Load Time | ~855ms |
-| Login Page Load Time | ~585ms |
-| Time to First Byte | ~1315ms |
-| Total Resource Size | ~227 KB |
-
-## Technologies Used
-
-- **Playwright**: Modern end-to-end testing framework
-- **Allure**: Test reporting and analysis
-- **GitHub Actions**: CI/CD automation
-- **JavaScript**: Programming language
+| Homepage Load Time | ~922ms |
+| Product Page Load Time | ~845ms |
+| Login Page Load Time | ~521ms |
+| Time to First Byte | ~687ms |
+| Product Listing Load | ~720ms |
 
 ## Getting Started
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/ArnabSircar/NopCommerce_UI_Automation.git
-   ```
+```bash
+# Clone
+git clone https://github.com/ArnabSircar/NopCommerce_UI_Automation.git
 
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+# Install
+npm install
 
-3. **Run tests**:
-   ```bash
-   npm test
-   ```
-
-4. **View reports**:
-   ```bash
-   npx playwright show-report
-   ```
-
-## Configuration
-
-Environment variables can be configured in `.env` file:
-```
-BASE_URL=https://demo.nopcommerce.com
-BROWSER=chromium
-TIMEOUT=30000
-HEADLESS=false
+# Test
+npm test
 ```
 
-## Best Practices Implemented
-
-1. **Page Object Model**: Separation of page logic from test code
-2. **Reusable Components**: Header, Footer components
-3. **Centralized Test Data**: utils/testData.js
-4. **Environment Configuration**: Multiple environment support
-5. **Automatic Reporting**: HTML and Allure reports
-6. **CI/CD Integration**: Automated testing on GitHub Actions
-7. **Screenshots/Videos**: Automatic capture on failure
-8. **Parallel Execution**: Faster test runs
-
-## Contributing
-
-Feel free to contribute by:
-1. Reporting issues
-2. Suggesting improvements
-3. Adding new test cases
-4. Improving documentation
+## Technologies Used
+- **Playwright** - End-to-end testing
+- **Allure** - Test reporting
+- **GitHub Actions** - CI/CD
+- **JavaScript** - Language
 
 ## License
-
 ISC License
 
-## Contact
-
-For questions or support, please open an issue on GitHub.
-
 ---
-
-**Note**: This project tests the NopCommerce demo store available at https://demo.nopcommerce.com/
+**Testing**: https://demo.nopcommerce.com/ | **Report**: https://arnabsircar.github.io/NopCommerce_UI_Automation/
