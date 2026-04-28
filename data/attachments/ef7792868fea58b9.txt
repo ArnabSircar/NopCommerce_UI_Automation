@@ -1,2 +1,0 @@
-Total resource size: 227.43 KB
-Load time: 792ms
