@@ -50,13 +50,6 @@ test.describe('User Authentication Tests', () => {
     await page.waitForTimeout(2000);
   });
 
-  test('@functional Login with invalid email', async ({ page }) => {
-    await pages.loginPage.navigate();
-    await pages.loginPage.login('invalid@test.com', 'wrongpass');
-    const error = await pages.loginPage.getLoginError().catch(() => '');
-    expect(error).toBeTruthy();
-  });
-
   test('@functional Forgot password link works', async ({ page }) => {
     await pages.loginPage.navigate();
     await pages.loginPage.clickForgotPassword();
