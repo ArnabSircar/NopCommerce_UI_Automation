@@ -6,13 +6,19 @@ on:
   pull_request:
     branches: [main, master]
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -46,37 +52,28 @@ jobs:
         path: allure-report/
         retention-days: 30
 
-    - name: Deploy Allure Report to GitHub Pages
-      if: github.ref == 'refs/heads/main'
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./allure-report
-
   deploy:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
-      
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        ref: gh-pages
-        fetch-depth: 0
-
     - name: Download Allure Report
       uses: actions/download-artifact@v4
       with:
         name: allure-report
-        path: .
+        path: allure-report
 
-    - name: Commit and Push
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git add .
-        git commit -m "Update Allure Report - $(date +'%Y-%m-%d %H:%M')" || true
-        git push origin gh-pages --force
+    - name: Setup Pages
+      uses: actions/configure-pages@v4
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: allure-report
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
